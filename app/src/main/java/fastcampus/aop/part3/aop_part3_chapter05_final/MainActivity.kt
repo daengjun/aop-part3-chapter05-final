@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
+
+    // 파이어 베이스 계정 정보 가져오기
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
 
 
@@ -25,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // 클릭 하면 로그인 PAGE 이동
         findViewById<TextView>(R.id.helloworldTextView).setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
         }
@@ -33,10 +36,15 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        //  currentUser 속성을 사용하여 현재 로그인한 사용자를 가져올 수도 있습니다. 사용자가 로그인 상태가 아니라면 currentUser 값이 null입니다.
+
+        // 현재 계정 정보가 없으면 로그인 페이지로 이동
         if (auth.currentUser == null) {
             startActivity(Intent(this, LoginActivity::class.java))
         } else {
+            // 계정 정보가 있을 경우 LikeActivity로 이동
             startActivity(Intent(this, LikeActivity::class.java))
+            // 종료
             finish()
         }
     }
